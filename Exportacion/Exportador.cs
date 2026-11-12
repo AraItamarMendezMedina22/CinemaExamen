@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -19,42 +19,43 @@ namespace Cinema_Doomsday.Exportacion
             ConsolaUI.Encabezado(
                 "EXPORTACIÓN DE DATOS");
 
-            Console.WriteLine(
-                "1. Películas");
-
-            Console.WriteLine(
-                "2. Salas");
-
-            Console.WriteLine(
-                "3. Funciones");
-
-            Console.WriteLine(
-                "4. Clientes");
-
-            Console.WriteLine(
-                "5. Reservas");
-
-            Console.WriteLine(
-                "6. Todo");
+            List<string> opciones =
+                new List<string>
+                {
+                    "Películas",
+                    "Salas",
+                    "Funciones",
+                    "Clientes",
+                    "Reservas",
+                    "Todo"
+                };
 
             int modulo =
-                Validador.LeerOpcion(
-                    1,
-                    6);
+                ConsolaUI.LeerMenu(
+                    opciones,
+                    true);
 
-            Console.WriteLine(
-                "1. Activos");
+            if (modulo == 0)
+                return;
 
-            Console.WriteLine(
-                "2. Inactivos");
+            ConsolaUI.Encabezado(
+                "FILTRO DE EXPORTACIÓN");
 
-            Console.WriteLine(
-                "3. Todos");
+            List<string> filtros =
+                new List<string>
+                {
+                    "Activos",
+                    "Inactivos",
+                    "Todos"
+                };
 
             int filtro =
-                Validador.LeerOpcion(
-                    1,
-                    3);
+                ConsolaUI.LeerMenu(
+                    filtros,
+                    true);
+
+            if (filtro == 0)
+                return;
 
             try
             {
@@ -63,38 +64,48 @@ namespace Cinema_Doomsday.Exportacion
 
                 if (modulo == 1 ||
                     modulo == 6)
+                {
                     AgregarPeliculas(
                         datos,
                         filtro,
                         lineas);
+                }
 
                 if (modulo == 2 ||
                     modulo == 6)
+                {
                     AgregarSalas(
                         datos,
                         filtro,
                         lineas);
+                }
 
                 if (modulo == 3 ||
                     modulo == 6)
+                {
                     AgregarFunciones(
                         datos,
                         filtro,
                         lineas);
+                }
 
                 if (modulo == 4 ||
                     modulo == 6)
+                {
                     AgregarClientes(
                         datos,
                         filtro,
                         lineas);
+                }
 
                 if (modulo == 5 ||
                     modulo == 6)
+                {
                     AgregarReservas(
                         datos,
                         filtro,
                         lineas);
+                }
 
                 if (lineas.Count == 0)
                 {
@@ -107,7 +118,7 @@ namespace Cinema_Doomsday.Exportacion
                 string carpeta =
                     Path.Combine(
                         AppDomain.CurrentDomain
-                        .BaseDirectory,
+                            .BaseDirectory,
                         "Exportaciones");
 
                 Directory.CreateDirectory(
@@ -117,14 +128,14 @@ namespace Cinema_Doomsday.Exportacion
                     Path.Combine(
                         carpeta,
                         "CinemaDoomsday_" +
-                        DateTime.Now
-                        .ToString(
+                        DateTime.Now.ToString(
                             "yyyyMMdd_HHmmss") +
                         ".csv");
 
                 File.WriteAllLines(
                     ruta,
-                    lineas);
+                    lineas,
+                    Encoding.UTF8);
 
                 ArchivoLogs.Registrar(
                     usuario,

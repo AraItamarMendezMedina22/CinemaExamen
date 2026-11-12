@@ -1,5 +1,6 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using Cinema_Doomsday.Logs;
 using Cinema_Doomsday.Modelos;
@@ -56,14 +57,17 @@ namespace Cinema_Doomsday.Login
                     Seguridad.CrearHash(
                         clave);
 
+                string usuarioNormalizado =
+                    NormalizarUsuario(
+                        usuario);
+
                 Usuario encontrado =
                     datos.Usuarios
                     .FirstOrDefault(
                         x =>
-                        x.NombreUsuario.Equals(
-                            usuario.Trim(),
-                            StringComparison
-                                .OrdinalIgnoreCase)
+                        NormalizarUsuario(
+                            x.NombreUsuario) ==
+                        usuarioNormalizado
                         &&
                         x.ContrasenaHash ==
                         hash);
@@ -111,9 +115,50 @@ namespace Cinema_Doomsday.Login
                 "Sesión finalizada");
         }
 
+        static string NormalizarUsuario(
+            string valor)
+        {
+            if (string.IsNullOrWhiteSpace(
+                valor))
+            {
+                return "";
+            }
+
+            string normalizado =
+                valor.Trim()
+                .Normalize(
+                    NormalizationForm.FormD);
+
+            StringBuilder resultado =
+                new StringBuilder();
+
+            foreach (
+                char caracter
+                in normalizado)
+            {
+                UnicodeCategory categoria =
+                    CharUnicodeInfo.GetUnicodeCategory(
+                        caracter);
+
+                if (categoria !=
+                    UnicodeCategory.NonSpacingMark)
+                {
+                    resultado.Append(
+                        caracter);
+                }
+            }
+
+            return resultado
+                .ToString()
+                .Normalize(
+                    NormalizationForm.FormC)
+                .ToUpperInvariant();
+        }
+
         static string LeerClave()
         {
-            string texto = "";
+            string texto =
+                "";
 
             ConsoleKeyInfo tecla;
 
@@ -146,7 +191,8 @@ namespace Cinema_Doomsday.Login
                     texto +=
                         tecla.KeyChar;
 
-                    Console.Write("*");
+                    Console.Write(
+                        "*");
                 }
             }
             while (

@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -87,6 +87,45 @@ namespace Cinema_Doomsday.Utilidades
             Console.ResetColor();
 
             Console.ReadLine();
+        }
+
+        public static int LeerMenu(
+            IList<string> opciones,
+            bool incluirVolver)
+        {
+            if (opciones == null ||
+                opciones.Count == 0)
+            {
+                throw new ArgumentException(
+                    "El menú no contiene opciones.",
+                    "opciones");
+            }
+
+            for (
+                int i = 0;
+                i < opciones.Count;
+                i++)
+            {
+                Console.WriteLine(
+                    (i + 1) +
+                    ". " +
+                    opciones[i]);
+            }
+
+            if (incluirVolver)
+            {
+                Console.WriteLine(
+                    "0. Volver");
+            }
+
+            int minimo =
+                incluirVolver
+                    ? 0
+                    : 1;
+
+            return Validador.LeerOpcion(
+                minimo,
+                opciones.Count);
         }
     }
 }

@@ -1,5 +1,6 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using Cinema_Doomsday.Archivos;
 using Cinema_Doomsday.Logs;
@@ -16,27 +17,35 @@ namespace Cinema_Doomsday.Clientes
             ContextoDatos datos,
             string usuario)
         {
-            string id =
-                Validador.LeerTexto(
-                    "ID cliente: ",
-                    3,
-                    15)
-                .ToUpper();
-
-            if (datos.Clientes.Any(
-                x => x.Id == id))
-            {
-                ConsolaUI.Error(
-                    "ID ocupado.");
-
-                return;
-            }
 
             string nombre =
                 Validador.LeerNombre(
                     "Nombre: ");
 
-            string correo =
+            string cedula =
+            Validador.LeerCedula(
+              "Cédula: ");
+
+            if (datos.Clientes.Any(
+            x =>
+              x.Cedula.Equals(
+                  cedula,
+                  StringComparison.OrdinalIgnoreCase)))
+                  {
+                    ConsolaUI.Error(
+                        "La cédula ya está registrada.");
+
+                    return;
+                  }
+              string origen =
+              Validador.ObtenerOrigenCedula(
+                cedula);
+
+                    Console.WriteLine(
+                        "Origen: " +
+                        origen);
+
+               string correo =
                 Validador.LeerCorreo(
                     "Correo: ");
 
@@ -55,10 +64,17 @@ namespace Cinema_Doomsday.Clientes
                 Validador.LeerTelefono(
                     "Celular: ");
 
+            string id =
+    GeneradorIds.SiguienteCliente(
+        datos.Clientes);
+
             datos.Clientes.Add(
                 new Cliente(
                     id,
                     nombre,
+                    cedula,
+                    Validador.ObtenerEdad(
+                        cedula),
                     correo,
                     telefono));
 
@@ -71,7 +87,9 @@ namespace Cinema_Doomsday.Clientes
                 id);
 
             ConsolaUI.Exito(
-                "Cliente registrado.");
+                "Cliente registrado" + id +".");
+
+
         }
     }
 }

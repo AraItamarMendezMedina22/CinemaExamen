@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Cinema_Doomsday.Modelos;
@@ -13,45 +13,21 @@ namespace Cinema_Doomsday.Clientes
         public static void Ejecutar(
             ContextoDatos datos)
         {
-            Console.WriteLine(
-                "1. Activos");
+      List<Cliente> resultado =
+  datos.Clientes
+  .OrderBy(
+      x => x.Id)
+  .ToList();
 
-            Console.WriteLine(
-                "2. Inactivos");
+      if (resultado.Count == 0)
+      {
+        ConsolaUI.Info(
+            "No hay clientes.");
 
-            Console.WriteLine(
-                "3. Todos");
+        return;
+      }
 
-            int opcion =
-                Validador.LeerOpcion(
-                    1,
-                    3);
-
-            IEnumerable<Cliente> lista =
-                datos.Clientes;
-
-            if (opcion == 1)
-                lista =
-                    lista.Where(
-                        x => x.Activo);
-
-            if (opcion == 2)
-                lista =
-                    lista.Where(
-                        x => !x.Activo);
-
-            List<Cliente> resultado =
-                lista.ToList();
-
-            if (resultado.Count == 0)
-            {
-                ConsolaUI.Info(
-                    "No hay clientes.");
-
-                return;
-            }
-
-            foreach (
+      foreach (
                 Cliente cliente
                 in resultado)
             {

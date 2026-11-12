@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -23,8 +23,25 @@ namespace Cinema_Doomsday
             Console.Title =
                 "Cinema Doomsday";
 
-            ContextoDatos datos =
-                ArchivoDatos.Cargar();
+            ContextoDatos datos;
+
+            try
+            {
+                datos =
+                    ArchivoDatos.Cargar();
+            }
+            catch (Exception ex)
+            {
+                ConsolaUI.Error(
+                    "No se pudo cargar la información.");
+
+                ConsolaUI.Error(
+                    ex.Message);
+
+                ConsolaUI.Pausa();
+
+                return;
+            }
 
             try
             {

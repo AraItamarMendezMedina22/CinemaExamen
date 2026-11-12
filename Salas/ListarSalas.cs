@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Cinema_Doomsday.Modelos;
@@ -13,45 +13,21 @@ namespace Cinema_Doomsday.Salas
         public static void Ejecutar(
             ContextoDatos datos)
         {
-            Console.WriteLine(
-                "1. Activas");
+      List<Sala> resultado =
+ datos.Salas
+ .OrderBy(
+     x => x.Id)
+ .ToList();
 
-            Console.WriteLine(
-                "2. Inactivas");
+      if (resultado.Count == 0)
+      {
+        ConsolaUI.Info(
+            "No hay salas.");
 
-            Console.WriteLine(
-                "3. Todas");
+        return;
+      }
 
-            int opcion =
-                Validador.LeerOpcion(
-                    1,
-                    3);
-
-            IEnumerable<Sala> lista =
-                datos.Salas;
-
-            if (opcion == 1)
-                lista =
-                    lista.Where(
-                        x => x.Activo);
-
-            if (opcion == 2)
-                lista =
-                    lista.Where(
-                        x => !x.Activo);
-
-            List<Sala> resultado =
-                lista.ToList();
-
-            if (resultado.Count == 0)
-            {
-                ConsolaUI.Info(
-                    "No hay salas.");
-
-                return;
-            }
-
-            foreach (
+      foreach (
                 Sala sala
                 in resultado)
             {

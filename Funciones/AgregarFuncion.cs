@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Cinema_Doomsday.Archivos;
@@ -16,23 +16,8 @@ namespace Cinema_Doomsday.Funciones
             ContextoDatos datos,
             string usuario)
         {
-            string id =
-                Validador.LeerTexto(
-                    "ID función: ",
-                    3,
-                    12)
-                .ToUpper();
-
-            if (datos.Funciones.Any(
-                x => x.Id == id))
-            {
-                ConsolaUI.Error(
-                    "ID ocupado.");
-
-                return;
-            }
-
-            string peliculaId =
+            
+                 string peliculaId =
                 Validador.LeerTexto(
                     "ID película: ",
                     3,
@@ -106,6 +91,10 @@ namespace Cinema_Doomsday.Funciones
                     50,
                     1000);
 
+            string id =
+                GeneradorIds.SiguienteFuncion(
+                    datos.Funciones);
+
             Funcion funcion =
                 new Funcion(
                     id,
@@ -131,7 +120,7 @@ namespace Cinema_Doomsday.Funciones
                 id);
 
             ConsolaUI.Exito(
-                "Función y asientos creados.");
+                "Función y asientos creados" + id + ".");
         }
     }
     

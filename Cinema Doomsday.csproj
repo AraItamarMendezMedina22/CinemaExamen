@@ -61,7 +61,9 @@
     <Compile Include="Funciones\ListarFunciones.cs" />
     <Compile Include="Interfaces\IActivable.cs" />
     <Compile Include="Login\Autenticacion.cs" />
+    <Compile Include="Login\GeneradorIds.cs" />
     <Compile Include="Login\GestionUsuarios.cs" />
+    <Compile Include="Login\ReglasUsuarios.cs" />
     <Compile Include="Logs\ArchivoLogs.cs" />
     <Compile Include="Logs\ConsultarLogs.cs" />
     <Compile Include="Menus\MenuClientes.cs" />
@@ -104,7 +106,9 @@
     <Compile Include="Salas\EditarSala.cs" />
     <Compile Include="Salas\EstadoSala.cs" />
     <Compile Include="Salas\ListarSalas.cs" />
+    <Compile Include="Utilidades\Cedulas\CatalogoMunicipios.cs" />
     <Compile Include="Utilidades\ConsolaUI.cs" />
+    <Compile Include="Utilidades\GeneradorIds.cs" />
     <Compile Include="Utilidades\ReglasCine.cs" />
     <Compile Include="Utilidades\Seguridad.cs" />
     <Compile Include="Utilidades\Validador.cs" />

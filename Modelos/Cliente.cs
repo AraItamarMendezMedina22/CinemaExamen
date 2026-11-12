@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -13,7 +13,17 @@ namespace Cinema_Doomsday.Modelos
             get;
             private set;
         }
+        public string Cedula
+        {
+         get;
+         private set;
+        }
 
+        public int Edad
+        {
+          get;
+          private set;
+        }
         public string Correo
         {
             get;
@@ -29,11 +39,15 @@ namespace Cinema_Doomsday.Modelos
         public Cliente(
             string id,
             string nombre,
+            string cedula,
+            int edad,
             string correo,
             string telefono)
             : base(id)
         {
             Nombre = nombre;
+            Cedula = cedula;
+            Edad = edad;
             Correo = correo;
             Telefono = telefono;
         }

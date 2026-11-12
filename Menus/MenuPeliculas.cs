@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Cinema_Doomsday.Modelos;
@@ -15,38 +15,32 @@ namespace Cinema_Doomsday.Menus
             ContextoDatos datos,
             Usuario usuario)
         {
-            bool volver = false;
+     
 
-            while (!volver)
+      ConsolaUI.Pausa();
+      ListarPeliculas.Ejecutar(
+             datos);
+      bool volver = false;
+      List<string> opciones =
+                   new List<string>
+                   {
+                        "Agregar",
+                        "Editar",
+                        "Buscar",
+                        "Actualizar duración",
+                        "Activar / Inactivar",
+                        "Listar"
+                   };
+
+      while (!volver)
             {
                 ConsolaUI.Encabezado(
                     "GESTIÓN DE PELÍCULAS");
 
-                System.Console.WriteLine(
-                    "1. Agregar");
-
-                System.Console.WriteLine(
-                    "2. Editar");
-
-                System.Console.WriteLine(
-                    "3. Buscar");
-
-                System.Console.WriteLine(
-                    "4. Listar");
-
-                System.Console.WriteLine(
-                    "5. Actualizar duración");
-
-                System.Console.WriteLine(
-                    "6. Activar / Inactivar");
-
-                System.Console.WriteLine(
-                    "0. Volver");
-
                 int opcion =
-                    Validador.LeerOpcion(
-                        0,
-                        6);
+                    ConsolaUI.LeerMenu(
+                        opciones,
+                        true);
 
                 switch (opcion)
                 {
@@ -68,17 +62,12 @@ namespace Cinema_Doomsday.Menus
                         break;
 
                     case 4:
-                        ListarPeliculas.Ejecutar(
-                            datos);
-                        break;
-
-                    case 5:
                         ActualizarPelicula.Ejecutar(
                             datos,
                             usuario.NombreUsuario);
                         break;
 
-                    case 6:
+                    case 5:
                         EstadoPelicula.Ejecutar(
                             datos,
                             usuario.NombreUsuario);

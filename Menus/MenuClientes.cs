@@ -1,9 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using Cinema_Doomsday.Clientes;
 using Cinema_Doomsday.Modelos;
+using Cinema_Doomsday.Peliculas;
 using Cinema_Doomsday.Utilidades;
+using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -15,32 +16,33 @@ namespace Cinema_Doomsday.Menus
             ContextoDatos datos,
             Usuario usuario)
         {
-            bool volver = false;
 
-            while (!volver)
+      bool volver = false;
+
+      ListarClientes.Ejecutar(
+         datos);
+
+      List<string> opciones =
+               new List<string>
+               {
+                        "Agregar",
+                        "Editar",
+                        "Buscar",
+                        "Listar",
+                        "Actualizar teléfono",
+                        "Activar / Inactivar"
+               };
+
+      while (!volver)
             {
                 ConsolaUI.Encabezado(
                     "GESTIÓN DE CLIENTES");
 
-                System.Console.WriteLine(
-                    "1. Agregar");
-                System.Console.WriteLine(
-                    "2. Editar");
-                System.Console.WriteLine(
-                    "3. Buscar");
-                System.Console.WriteLine(
-                    "4. Listar");
-                System.Console.WriteLine(
-                    "5. Actualizar teléfono");
-                System.Console.WriteLine(
-                    "6. Activar / Inactivar");
-                System.Console.WriteLine(
-                    "0. Volver");
-
+           
                 int opcion =
-                    Validador.LeerOpcion(
-                        0,
-                        6);
+                    ConsolaUI.LeerMenu(
+                        opciones,
+                        true);
 
                 switch (opcion)
                 {
@@ -62,17 +64,12 @@ namespace Cinema_Doomsday.Menus
                         break;
 
                     case 4:
-                        ListarClientes.Ejecutar(
-                            datos);
-                        break;
-
-                    case 5:
                         ActualizarCliente.Ejecutar(
                             datos,
                             usuario.NombreUsuario);
                         break;
 
-                    case 6:
+                    case 5:
                         EstadoCliente.Ejecutar(
                             datos,
                             usuario.NombreUsuario);

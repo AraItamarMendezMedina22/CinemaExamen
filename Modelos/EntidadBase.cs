@@ -1,10 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System;
 using Cinema_Doomsday.Interfaces;
-
 
 namespace Cinema_Doomsday.Modelos
 {
@@ -13,19 +8,31 @@ namespace Cinema_Doomsday.Modelos
         public string Id
         {
             get;
-            protected set;
+            private set;
         }
 
         public bool Activo
         {
             get;
-            protected set;
+            private set;
         }
 
-        protected EntidadBase(string id)
+        protected EntidadBase(
+            string id)
         {
-            Id = id;
-            Activo = true;
+            if (string.IsNullOrWhiteSpace(id))
+            {
+                throw new ArgumentException(
+                    "El identificador es obligatorio.",
+                    "id");
+            }
+
+            Id =
+                id.Trim()
+                .ToUpperInvariant();
+
+            Activo =
+                true;
         }
 
         public void Activar()

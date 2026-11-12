@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Cinema_Doomsday.Exportacion;
@@ -28,43 +28,28 @@ namespace Cinema_Doomsday.Menus
                         "MENÚ PRINCIPAL");
 
                     Console.WriteLine(
-                        "Usuario: " +
-                        usuario.NombreUsuario);
+                        usuario.NombreUsuario +
+                        "\t" +
+                        usuario.Rol +
+                        "\n");
 
-                    Console.WriteLine(
-                        "Rol: " +
-                        usuario.Rol);
-
-                    Console.WriteLine();
-
-                    Console.WriteLine(
-                        "1. Películas");
-
-                    Console.WriteLine(
-                        "2. Salas");
-
-                    Console.WriteLine(
-                        "3. Funciones / Cartelera");
-
-                    Console.WriteLine(
-                        "4. Clientes");
-
-                    Console.WriteLine(
-                        "5. Boletería / Reservas");
-
-                    Console.WriteLine(
-                        "6. Exportar datos");
-
-                    Console.WriteLine(
-                        "7. Consultar logs");
-
-                    Console.WriteLine(
-                        "8. Cerrar sesión");
+                    List<string> opciones =
+                        new List<string>
+                        {
+                            "Películas",
+                            "Salas",
+                            "Funciones / Cartelera",
+                            "Clientes",
+                            "Boletería / Reservas",
+                            "Exportar datos",
+                            "Consultar logs",
+                            "Cerrar sesión"
+                        };
 
                     int opcion =
-                        Validador.LeerOpcion(
-                            1,
-                            8);
+                        ConsolaUI.LeerMenu(
+                            opciones,
+                            false);
 
                     switch (opcion)
                     {

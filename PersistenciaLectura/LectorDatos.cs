@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using Cinema_Doomsday.Modelos;
@@ -28,7 +28,7 @@ namespace Cinema_Doomsday.PersistenciaLectura
             ContextoDatos d)
         {
             int cantidad =
-                r.ReadInt32();
+                LeerCantidad(r, "usuarios");
 
             for (
                 int i = 0;
@@ -60,7 +60,7 @@ namespace Cinema_Doomsday.PersistenciaLectura
             ContextoDatos d)
         {
             int cantidad =
-                r.ReadInt32();
+                LeerCantidad(r, "peliculas");
 
             for (
                 int i = 0;
@@ -93,7 +93,7 @@ namespace Cinema_Doomsday.PersistenciaLectura
             ContextoDatos d)
         {
             int cantidad =
-                r.ReadInt32();
+                LeerCantidad(r, "salas");
 
             for (
                 int i = 0;
@@ -125,7 +125,7 @@ namespace Cinema_Doomsday.PersistenciaLectura
             ContextoDatos d)
         {
             int cantidad =
-                r.ReadInt32();
+                LeerCantidad(r, "funciones");
 
             for (
                 int i = 0;
@@ -159,7 +159,7 @@ namespace Cinema_Doomsday.PersistenciaLectura
             ContextoDatos d)
         {
             int cantidad =
-                r.ReadInt32();
+                LeerCantidad(r, "asientos");
 
             for (
                 int i = 0;
@@ -185,7 +185,7 @@ namespace Cinema_Doomsday.PersistenciaLectura
             ContextoDatos d)
         {
             int cantidad =
-                r.ReadInt32();
+                LeerCantidad(r, "clientes");
 
             for (
                 int i = 0;
@@ -203,6 +203,8 @@ namespace Cinema_Doomsday.PersistenciaLectura
                         id,
                         r.ReadString(),
                         r.ReadString(),
+                        r.ReadInt32(),
+                        r.ReadString(),
                         r.ReadString());
 
                 if (!activo)
@@ -217,7 +219,7 @@ namespace Cinema_Doomsday.PersistenciaLectura
             ContextoDatos d)
         {
             int cantidad =
-                r.ReadInt32();
+                LeerCantidad(r, "reservas");
 
             for (
                 int i = 0;
@@ -286,6 +288,29 @@ namespace Cinema_Doomsday.PersistenciaLectura
 
                 d.Reservas.Add(x);
             }
+        }
+
+        static int LeerCantidad(
+            BinaryReader reader,
+            string entidad)
+        {
+            int cantidad =
+                reader.ReadInt32();
+
+            const int maximo =
+                100000;
+
+            if (cantidad < 0 ||
+                cantidad > maximo)
+            {
+                throw new InvalidDataException(
+                    "Cantidad inválida para " +
+                    entidad +
+                    ": " +
+                    cantidad);
+            }
+
+            return cantidad;
         }
     }
 }

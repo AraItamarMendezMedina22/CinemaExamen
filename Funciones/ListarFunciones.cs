@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Cinema_Doomsday.Modelos;
@@ -13,46 +13,20 @@ namespace Cinema_Doomsday.Funciones
         public static void Ejecutar(
             ContextoDatos datos)
         {
-            Console.WriteLine(
-                "1. Activas");
+      List<Funcion> resultado =
+  datos.Funciones
+  .OrderBy(
+      x => x.HoraInicio)
+  .ToList();
 
-            Console.WriteLine(
-                "2. Inactivas");
+      if (resultado.Count == 0)
+      {
+        ConsolaUI.Info(
+            "No hay funciones.");
 
-            Console.WriteLine(
-                "3. Todas");
-
-            int opcion =
-                Validador.LeerOpcion(
-                    1,
-                    3);
-
-            IEnumerable<Funcion> lista =
-                datos.Funciones;
-
-            if (opcion == 1)
-                lista =
-                    lista.Where(
-                        x => x.Activo);
-
-            if (opcion == 2)
-                lista =
-                    lista.Where(
-                        x => !x.Activo);
-
-            List<Funcion> resultado =
-                lista
-                .OrderBy(
-                    x => x.HoraInicio)
-                .ToList();
-
-            if (resultado.Count == 0)
-            {
-                ConsolaUI.Info(
-                    "No existen funciones.");
-
-                return;
-            }
+        return;
+      }
+    
 
             foreach (
                 Funcion funcion

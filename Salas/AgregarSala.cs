@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Cinema_Doomsday.Archivos;
@@ -16,23 +16,9 @@ namespace Cinema_Doomsday.Salas
             ContextoDatos datos,
             string usuario)
         {
-            string id =
-                Validador.LeerTexto(
-                    "ID sala: ",
-                    3,
-                    12)
-                .ToUpper();
+         
 
-            if (datos.Salas.Any(
-                x => x.Id == id))
-            {
-                ConsolaUI.Error(
-                    "ID ocupado.");
-
-                return;
-            }
-
-            int numero =
+                int numero =
                 Validador.LeerEntero(
                     "Número de sala: ",
                     1,
@@ -76,6 +62,10 @@ namespace Cinema_Doomsday.Salas
                 ? "3D"
                 : "IMAX";
 
+            string id =
+    GeneradorIds.SiguienteSala(
+        datos.Salas);
+
             datos.Salas.Add(
                 new Sala(
                     id,
@@ -92,7 +82,7 @@ namespace Cinema_Doomsday.Salas
                 id);
 
             ConsolaUI.Exito(
-                "Sala registrada.");
+                "Sala registrada" + id + ".");
         }
     }
 }
