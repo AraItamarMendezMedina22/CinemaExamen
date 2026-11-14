@@ -45,9 +45,32 @@ namespace Cinema_Doomsday.Reservas
                 asientos.Count == 0)
                 return;
 
-            decimal total =
+            decimal subtotal =
                 funcion.Precio *
                 asientos.Count;
+
+            decimal descuento =
+                cliente.MembresiaVigente
+                ? subtotal * 0.05m
+                : 0m;
+
+            decimal total =
+                subtotal - descuento;
+
+            if (cliente.MembresiaVigente)
+            {
+                ConsolaUI.Info(
+                    "Membresía vigente: 5% de descuento.");
+
+                Console.WriteLine(
+                    "Descuento: C$" +
+                    descuento.ToString("N2"));
+            }
+            else
+            {
+                ConsolaUI.Info(
+                    "Membresía vencida: sin descuento.");
+            }
 
             ResultadoPago pago =
                 ProcesadorPago.Procesar(

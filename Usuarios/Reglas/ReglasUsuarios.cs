@@ -1,6 +1,7 @@
-using System;
 using Cinema_Doomsday.Excepciones;
 using Cinema_Doomsday.Modelos;
+using Cinema_Doomsday.Utilidades;
+using System;
 
 namespace Cinema_Doomsday.Login
 {
@@ -51,6 +52,19 @@ namespace Cinema_Doomsday.Login
                 throw new ReglaNegocioException(
                     "Víctor es el administrador máximo " +
                     "y no puede ser desactivado.");
+            }
+        }
+
+        public static void ValidarContrasena(
+               string clave)
+        {
+            if (!Validador.ContrasenaSegura(
+                clave))
+            {
+                throw new ReglaNegocioException(
+                    "La contraseña debe tener de 8 a 20 " +
+                    "caracteres, mayúscula, minúscula, " +
+                    "número y símbolo.");
             }
         }
     }

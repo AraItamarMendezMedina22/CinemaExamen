@@ -112,60 +112,111 @@ namespace Cinema_Doomsday.Asientos
         }
 
         public static void MostrarMapa(
-            ContextoDatos datos,
-            string funcionId)
+    ContextoDatos datos,
+    string funcionId)
         {
-            Console.WriteLine();
-            Console.WriteLine(
-                "               PANTALLA");
-            Console.WriteLine(
-                "====================================");
-            Console.WriteLine(
-                "[X] Ocupado     [Número] Disponible");
-            Console.WriteLine();
-
-            var filas =
+            List<Asiento> asientos =
                 datos.Asientos
                 .Where(
-                    x =>
-                    x.FuncionId ==
-                    funcionId)
+                    x => x.FuncionId ==
+                         funcionId)
                 .OrderBy(
                     x => x.Fila)
                 .ThenBy(
                     x => x.Numero)
-                .GroupBy(
-                    x => x.Fila);
+                .ToList();
 
-            foreach (
-                var fila
-                in filas)
+            if (asientos.Count == 0)
+            {
+                ConsolaUI.Info(
+                    "No existen asientos.");
+
+                return;
+            }
+
+            List<string> filas =
+                asientos
+                .Select(x => x.Fila)
+                .Distinct()
+                .OrderBy(x => x)
+                .ToList();
+
+            int columnas =
+                asientos.Max(
+                    x => x.Numero);
+
+            Asiento[,] matriz =
+                new Asiento[
+                    filas.Count,
+                    columnas];
+
+            foreach (Asiento asiento
+                     in asientos)
+            {
+                int fila =
+                    filas.IndexOf(
+                        asiento.Fila);
+
+                matriz[
+                    fila,
+                    asiento.Numero - 1] =
+                    asiento;
+            }
+
+            Console.WriteLine();
+            Console.WriteLine(
+                "              PANTALLA");
+            Console.WriteLine(
+                "================================");
+
+            Console.Write("    ");
+
+            for (int c = 1;
+                 c <= columnas;
+                 c++)
             {
                 Console.Write(
-                    fila.Key + "  ");
+                    c.ToString()
+                    .PadLeft(3));
+            }
 
-                foreach (
-                    Asiento asiento
-                    in fila)
+            Console.WriteLine();
+
+            for (int f = 0;
+                 f < filas.Count;
+                 f++)
+            {
+                Console.Write(
+                    filas[f]
+                    .PadRight(4));
+
+                for (int c = 0;
+                     c < columnas;
+                     c++)
                 {
-                    if (asiento.EstaOcupado)
+                    Asiento asiento =
+                        matriz[f, c];
+
+                    if (asiento == null)
                     {
                         Console.Write(
-                            "[X]");
+                            "   ");
+
+                        continue;
                     }
-                    else
-                    {
-                        Console.Write(
-                            "[" +
-                            asiento.Numero +
-                            "]");
-                    }
+
+                    Console.Write(
+                        asiento.EstaOcupado
+                            ? "[X]"
+                            : "[ ]");
                 }
 
                 Console.WriteLine();
             }
 
             Console.WriteLine();
+            Console.WriteLine(
+                "[ ] Disponible   [X] Ocupado");
         }
     }
 }

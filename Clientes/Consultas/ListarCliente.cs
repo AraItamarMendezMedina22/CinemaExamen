@@ -43,6 +43,13 @@ namespace Cinema_Doomsday.Clientes
                     (cliente.Activo
                         ? "Activo"
                         : "Inactivo"));
+
+                Console.WriteLine(
+                " | Membresía: " +
+                  (cliente.MembresiaVigente
+                        ? "Vigente"
+                        : "Vencida"));
+
             }
         }
     }

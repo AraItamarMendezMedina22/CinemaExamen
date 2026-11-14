@@ -64,19 +64,42 @@ namespace Cinema_Doomsday.Clientes
                 Validador.LeerTelefono(
                     "Celular: ");
 
+            Console.WriteLine();
+            Console.WriteLine("TIEMPO DE MEMBRESÍA");
+            Console.WriteLine("1. 1 mes");
+            Console.WriteLine("2. 3 meses");
+            Console.WriteLine("3. 6 meses");
+            Console.WriteLine("4. 12 meses");
+
+            int opcionMembresia =
+                Validador.LeerOpcion(1, 4);
+
+            int meses =
+                opcionMembresia == 1 ? 1 :
+                opcionMembresia == 2 ? 3 :
+                opcionMembresia == 3 ? 6 : 12;
+
+            DateTime membresiaHasta =
+            DateTime.Today.AddMonths(meses);
+
+
+
             string id =
-    GeneradorIds.SiguienteCliente(
-        datos.Clientes);
+            GeneradorIds.SiguienteCliente(
+              datos.Clientes);
 
             datos.Clientes.Add(
                 new Cliente(
                     id,
                     nombre,
                     cedula,
-                    Validador.ObtenerEdad(
-                        cedula),
+                    Validador.ObtenerEdad(cedula),
                     correo,
-                    telefono));
+                    telefono,
+                    membresiaHasta));
+
+            ConsolaUI.Info(
+            "Membresía vigente hasta: " +membresiaHasta.ToString("dd/MM/yyyy"));
 
             ArchivoDatos.Guardar(
                 datos);

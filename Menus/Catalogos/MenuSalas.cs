@@ -1,6 +1,6 @@
-using Cinema_Doomsday.Clientes;
 using Cinema_Doomsday.Modelos;
 using Cinema_Doomsday.Peliculas;
+using Cinema_Doomsday.Salas;
 using Cinema_Doomsday.Utilidades;
 using System;
 using System.Collections.Generic;
@@ -10,35 +10,34 @@ using System.Threading.Tasks;
 
 namespace Cinema_Doomsday.Menus
 {
-    public static class MenuClientes
+    public static class MenuSalas
     {
         public static void Mostrar(
             ContextoDatos datos,
             Usuario usuario)
         {
+     
 
+      ConsolaUI.Pausa();
       bool volver = false;
-
-      ListarClientes.Ejecutar(
-         datos);
-
+      ListarSalas.Ejecutar(
+     datos);
       List<string> opciones =
-               new List<string>
-               {
+          new List<string>
+          {
                         "Agregar",
                         "Editar",
                         "Buscar",
                         "Listar",
-                        "Actualizar teléfono",
+                        "Actualizar capacidad",
                         "Activar / Inactivar"
-               };
-
-      while (!volver)
+          };
+            while (!volver)
             {
                 ConsolaUI.Encabezado(
-                    "GESTIÓN DE CLIENTES");
+                    "GESTIÓN DE SALAS");
+;
 
-           
                 int opcion =
                     ConsolaUI.LeerMenu(
                         opciones,
@@ -47,40 +46,41 @@ namespace Cinema_Doomsday.Menus
                 switch (opcion)
                 {
                     case 1:
-                        AgregarCliente.Ejecutar(
+                        AgregarSala.Ejecutar(
                             datos,
                             usuario.NombreUsuario);
                         break;
 
                     case 2:
-                        EditarCliente.Ejecutar(
+                        EditarSala.Ejecutar(
                             datos,
                             usuario.NombreUsuario);
                         break;
 
                     case 3:
-                        BuscarCliente.Ejecutar(
-                            datos);
+                        BuscarSala.Ejecutar(datos);
                         break;
 
                     case 4:
-                        ActualizarCliente.Ejecutar(
+                        ListarSalas.Ejecutar(datos);
+                        break;
+
+                    case 5:
+                        ActualizarSala.Ejecutar(
                             datos,
                             usuario.NombreUsuario);
                         break;
 
-                    case 5:
-                        EstadoCliente.Ejecutar(
+                    case 6:
+                        EstadoSala.Ejecutar(
                             datos,
                             usuario.NombreUsuario);
                         break;
 
                     case 0:
                         volver = true;
-                        continue;
+                        break;
                 }
-
-                ConsolaUI.Pausa();
             }
         }
     }

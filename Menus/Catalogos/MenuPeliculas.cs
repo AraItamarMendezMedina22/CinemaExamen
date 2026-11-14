@@ -1,16 +1,15 @@
-using Cinema_Doomsday.Modelos;
-using Cinema_Doomsday.Peliculas;
-using Cinema_Doomsday.Salas;
-using Cinema_Doomsday.Utilidades;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Cinema_Doomsday.Modelos;
+using Cinema_Doomsday.Peliculas;
+using Cinema_Doomsday.Utilidades;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace Cinema_Doomsday.Menus
 {
-    public static class MenuSalas
+    public static class MenuPeliculas
     {
         public static void Mostrar(
             ContextoDatos datos,
@@ -19,24 +18,24 @@ namespace Cinema_Doomsday.Menus
      
 
       ConsolaUI.Pausa();
+      ListarPeliculas.Ejecutar(
+             datos);
       bool volver = false;
-      ListarSalas.Ejecutar(
-     datos);
       List<string> opciones =
-          new List<string>
-          {
+                   new List<string>
+                   {
                         "Agregar",
                         "Editar",
                         "Buscar",
-                        "Listar",
-                        "Actualizar capacidad",
-                        "Activar / Inactivar"
-          };
-            while (!volver)
+                        "Actualizar duración",
+                        "Activar / Inactivar",
+                        "Listar"
+                   };
+
+      while (!volver)
             {
                 ConsolaUI.Encabezado(
-                    "GESTIÓN DE SALAS");
-;
+                    "GESTIÓN DE PELÍCULAS");
 
                 int opcion =
                     ConsolaUI.LeerMenu(
@@ -46,40 +45,41 @@ namespace Cinema_Doomsday.Menus
                 switch (opcion)
                 {
                     case 1:
-                        AgregarSala.Ejecutar(
+                        AgregarPelicula.Ejecutar(
                             datos,
                             usuario.NombreUsuario);
                         break;
 
                     case 2:
-                        EditarSala.Ejecutar(
+                        EditarPelicula.Ejecutar(
                             datos,
                             usuario.NombreUsuario);
                         break;
 
                     case 3:
-                        BuscarSala.Ejecutar(
-                            datos);
+                        BuscarPelicula.Ejecutar(datos);
                         break;
 
                     case 4:
-                        ActualizarSala.Ejecutar(
+                        ActualizarPelicula.Ejecutar(
                             datos,
                             usuario.NombreUsuario);
                         break;
 
                     case 5:
-                        EstadoSala.Ejecutar(
+                        EstadoPelicula.Ejecutar(
                             datos,
                             usuario.NombreUsuario);
                         break;
 
+                    case 6:
+                        ListarPeliculas.Ejecutar(datos);
+                        break;
+
                     case 0:
                         volver = true;
-                        continue;
+                        break;
                 }
-
-                ConsolaUI.Pausa();
             }
         }
     }

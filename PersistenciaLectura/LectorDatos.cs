@@ -2,9 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using Cinema_Doomsday.Modelos;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+
 
 namespace Cinema_Doomsday.PersistenciaLectura
 {
@@ -27,13 +25,9 @@ namespace Cinema_Doomsday.PersistenciaLectura
             BinaryReader r,
             ContextoDatos d)
         {
-            int cantidad =
-                LeerCantidad(r, "usuarios");
+            int cantidad = ValidadorLectura.LeerCantidad(r, "usuarios");
 
-            for (
-                int i = 0;
-                i < cantidad;
-                i++)
+            for (int i = 0; i < cantidad; i++)
             {
                 string id =
                     r.ReadString();
@@ -59,13 +53,11 @@ namespace Cinema_Doomsday.PersistenciaLectura
             BinaryReader r,
             ContextoDatos d)
         {
-            int cantidad =
-                LeerCantidad(r, "peliculas");
+            int cantidad = ValidadorLectura.LeerCantidad(r, "peliculas");
 
-            for (
-                int i = 0;
-                i < cantidad;
-                i++)
+            for (int i = 0; i < cantidad; i++)
+            
+
             {
                 string id =
                     r.ReadString();
@@ -92,13 +84,10 @@ namespace Cinema_Doomsday.PersistenciaLectura
             BinaryReader r,
             ContextoDatos d)
         {
-            int cantidad =
-                LeerCantidad(r, "salas");
+            int cantidad = ValidadorLectura.LeerCantidad(r, "salas");
 
-            for (
-                int i = 0;
-                i < cantidad;
-                i++)
+            for (int i = 0; i < cantidad; i++)
+            
             {
                 string id =
                     r.ReadString();
@@ -124,13 +113,9 @@ namespace Cinema_Doomsday.PersistenciaLectura
             BinaryReader r,
             ContextoDatos d)
         {
-            int cantidad =
-                LeerCantidad(r, "funciones");
-
-            for (
-                int i = 0;
-                i < cantidad;
-                i++)
+            int cantidad = ValidadorLectura.LeerCantidad(r, "funciones");
+            for (int i = 0; i < cantidad; i++)
+            
             {
                 string id =
                     r.ReadString();
@@ -158,13 +143,10 @@ namespace Cinema_Doomsday.PersistenciaLectura
             BinaryReader r,
             ContextoDatos d)
         {
-            int cantidad =
-                LeerCantidad(r, "asientos");
+            int cantidad = ValidadorLectura.LeerCantidad(r, "asientos");
 
-            for (
-                int i = 0;
-                i < cantidad;
-                i++)
+            for (int i = 0; i < cantidad; i++)
+            
             {
                 Asiento x =
                     new Asiento(
@@ -181,31 +163,25 @@ namespace Cinema_Doomsday.PersistenciaLectura
         }
 
         static void Clientes(
-            BinaryReader r,
-            ContextoDatos d)
+           BinaryReader r,
+           ContextoDatos d)
         {
             int cantidad =
-                LeerCantidad(r, "clientes");
+                ValidadorLectura.LeerCantidad(r,"clientes");
 
-            for (
-                int i = 0;
-                i < cantidad;
-                i++)
+            for (int i = 0; i < cantidad; i++)
             {
-                string id =
-                    r.ReadString();
+                string id = r.ReadString();
+                bool activo = r.ReadBoolean();
 
-                bool activo =
-                    r.ReadBoolean();
-
-                Cliente x =
-                    new Cliente(
-                        id,
-                        r.ReadString(),
-                        r.ReadString(),
-                        r.ReadInt32(),
-                        r.ReadString(),
-                        r.ReadString());
+                Cliente x = new Cliente(
+                    id,
+                    r.ReadString(),
+                    r.ReadString(),
+                    r.ReadInt32(),
+                    r.ReadString(),
+                    r.ReadString(),
+                    new DateTime(r.ReadInt64()));
 
                 if (!activo)
                     x.Desactivar();
@@ -218,14 +194,11 @@ namespace Cinema_Doomsday.PersistenciaLectura
             BinaryReader r,
             ContextoDatos d)
         {
-            int cantidad =
-                LeerCantidad(r, "reservas");
+            int cantidad = ValidadorLectura.LeerCantidad(r, "reservas");
 
-            for (
-                int i = 0;
-                i < cantidad;
-                i++)
-            {
+            for (int i = 0; i < cantidad; i++)
+            
+             {
                 string id =
                     r.ReadString();
 
@@ -264,6 +237,7 @@ namespace Cinema_Doomsday.PersistenciaLectura
                     int j = 0;
                     j < cantidadAsientos;
                     j++)
+
                 {
                     asientos.Add(
                         r.ReadString());
@@ -290,27 +264,6 @@ namespace Cinema_Doomsday.PersistenciaLectura
             }
         }
 
-        static int LeerCantidad(
-            BinaryReader reader,
-            string entidad)
-        {
-            int cantidad =
-                reader.ReadInt32();
-
-            const int maximo =
-                100000;
-
-            if (cantidad < 0 ||
-                cantidad > maximo)
-            {
-                throw new InvalidDataException(
-                    "Cantidad inválida para " +
-                    entidad +
-                    ": " +
-                    cantidad);
-            }
-
-            return cantidad;
-        }
+        
     }
 }

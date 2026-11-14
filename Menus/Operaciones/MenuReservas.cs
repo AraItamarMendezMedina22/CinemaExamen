@@ -48,28 +48,27 @@ namespace Cinema_Doomsday.Menus
                         break;
 
                     case 2:
-                        BuscarReserva.Ejecutar(
-                            datos);
+                        BuscarReserva.Ejecutar(datos);
                         break;
 
                     case 3:
+                        ListarReservas.Ejecutar(datos);
+                        break;
+
+                    case 4:
                         CancelarReserva.Ejecutar(
                             datos,
                             usuario.NombreUsuario);
                         break;
 
-                    case 4:
-                        ReimprimirRecibo.Ejecutar(
-                            datos);
+                    case 5:
+                        ReimprimirRecibo.Ejecutar(datos);
                         break;
 
                     case 0:
-                        volver =
-                            true;
-                        continue;
+                        volver = true;
+                        break;
                 }
-
-                ConsolaUI.Pausa();
             }
         }
     }

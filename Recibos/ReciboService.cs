@@ -73,6 +73,23 @@ namespace Cinema_Doomsday.Recibos
                 cliente.Telefono);
 
             recibo.AppendLine(
+                "Membresía: " +
+              (cliente.MembresiaVigente
+                ? "VIGENTE"
+                : "VENCIDA"));
+
+            recibo.AppendLine(
+                "Vence: " +
+                cliente.MembresiaHasta
+                .ToString("dd/MM/yyyy"));
+
+            if (cliente.MembresiaVigente)
+            {
+                recibo.AppendLine(
+                    "Beneficio: 5% de descuento");
+            }
+
+            recibo.AppendLine(
                 "Película: " +
                 pelicula.Titulo);
 

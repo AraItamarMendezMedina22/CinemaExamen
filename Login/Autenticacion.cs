@@ -73,14 +73,40 @@ namespace Cinema_Doomsday.Login
                         hash);
 
                 if (encontrado != null &&
-                    encontrado.Activo)
+                    encontrado.EstaBloqueado)
                 {
+                    ArchivoLogs.Registrar(
+                        usuario,
+                        "LOGIN BLOQUEADO",
+                        "Bloqueo temporal");
+
+                    ConsolaUI.Error(
+                        "Acceso temporalmente bloqueado.");
+
+                    ConsolaUI.Pausa();
+
+                    return null;
+                }
+
+
+                if (encontrado != null &&
+                    encontrado.Activo &&
+                    encontrado.ContrasenaHash ==
+                    hash)
+                {
+                    encontrado.ReiniciarAcceso();
+
                     ArchivoLogs.Registrar(
                         encontrado.NombreUsuario,
                         "LOGIN EXITOSO",
                         "Inicio de sesión");
 
                     return encontrado;
+                }
+
+                if (encontrado != null)
+                {
+                    encontrado.RegistrarFallo();
                 }
 
                 ArchivoLogs.Registrar(

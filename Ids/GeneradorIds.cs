@@ -31,6 +31,15 @@ namespace Cinema_Doomsday.Utilidades
                 "SAL");
         }
 
+        public static string SiguienteUsuario(
+          System.Collections.Generic.IEnumerable<
+         Cinema_Doomsday.Modelos.Usuario> usuarios)
+        {
+            return Siguiente(
+                usuarios,
+                "USR");
+        }
+
         public static string SiguienteFuncion(
             IEnumerable<Funcion> funciones)
         {

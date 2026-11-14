@@ -1,41 +1,45 @@
+using Cinema_Doomsday.Clientes;
+using Cinema_Doomsday.Modelos;
+using Cinema_Doomsday.Peliculas;
+using Cinema_Doomsday.Salas;
+using Cinema_Doomsday.Utilidades;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Cinema_Doomsday.Modelos;
-using Cinema_Doomsday.Peliculas;
-using Cinema_Doomsday.Utilidades;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace Cinema_Doomsday.Menus
 {
-    public static class MenuPeliculas
+    public static class MenuClientes
     {
         public static void Mostrar(
             ContextoDatos datos,
             Usuario usuario)
         {
-     
 
-      ConsolaUI.Pausa();
-      ListarPeliculas.Ejecutar(
-             datos);
-      bool volver = false;
-      List<string> opciones =
-                   new List<string>
-                   {
+            bool volver = false;
+
+            ListarClientes.Ejecutar(
+               datos);
+
+            List<string> opciones =
+                     new List<string>
+                     {
                         "Agregar",
                         "Editar",
                         "Buscar",
-                        "Actualizar duración",
+                        "Listar",
+                        "Actualizar teléfono",
                         "Activar / Inactivar",
-                        "Listar"
-                   };
+                        "Renovar membresía",
+                     };
 
-      while (!volver)
+            while (!volver)
             {
                 ConsolaUI.Encabezado(
-                    "GESTIÓN DE PELÍCULAS");
+                    "GESTIÓN DE CLIENTES");
+
 
                 int opcion =
                     ConsolaUI.LeerMenu(
@@ -45,41 +49,51 @@ namespace Cinema_Doomsday.Menus
                 switch (opcion)
                 {
                     case 1:
-                        AgregarPelicula.Ejecutar(
+                        AgregarCliente.Ejecutar(
                             datos,
                             usuario.NombreUsuario);
                         break;
 
                     case 2:
-                        EditarPelicula.Ejecutar(
+                        EditarCliente.Ejecutar(
                             datos,
                             usuario.NombreUsuario);
                         break;
 
                     case 3:
-                        BuscarPelicula.Ejecutar(
-                            datos);
+                        BuscarCliente.Ejecutar(datos);
                         break;
 
                     case 4:
-                        ActualizarPelicula.Ejecutar(
+                        ListarClientes.Ejecutar(datos);
+                        break;
+
+                    case 5:
+                        ActualizarCliente.Ejecutar(
                             datos,
                             usuario.NombreUsuario);
                         break;
 
-                    case 5:
-                        EstadoPelicula.Ejecutar(
+                    case 6:
+                        EstadoCliente.Ejecutar(
+                            datos,
+                            usuario.NombreUsuario);
+                        break;
+
+                    case 7:
+                        RenovarMembresia.Ejecutar(
                             datos,
                             usuario.NombreUsuario);
                         break;
 
                     case 0:
                         volver = true;
-                        continue;
+                        break;
                 }
-
-                ConsolaUI.Pausa();
             }
+
+
         }
     }
+
 }

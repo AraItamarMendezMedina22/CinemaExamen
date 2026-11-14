@@ -141,22 +141,20 @@ namespace Cinema_Doomsday.PersistenciaEscritura
             }
         }
 
-        static void Clientes(
+       static void Clientes(
             BinaryWriter w,
             ContextoDatos d)
-        {
-            w.Write(
-                d.Clientes.Count);
+       {
+            w.Write(d.Clientes.Count);
 
-            foreach (
-                Cliente x
-                in d.Clientes)
+            foreach (Cliente x in d.Clientes)
             {
                 w.Write(x.Id);
                 w.Write(x.Activo);
                 w.Write(x.Nombre);
                 w.Write(x.Correo);
                 w.Write(x.Telefono);
+                w.Write(x.MembresiaHasta.Ticks);
             }
         }
 

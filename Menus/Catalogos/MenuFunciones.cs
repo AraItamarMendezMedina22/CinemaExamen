@@ -58,17 +58,20 @@ namespace Cinema_Doomsday.Menus
                         break;
 
                     case 3:
-                        BuscarFuncion.Ejecutar(
-                            datos);
+                        BuscarFuncion.Ejecutar(datos);
                         break;
 
                     case 4:
+                        ListarFunciones.Ejecutar(datos);
+                        break;
+
+                    case 5:
                         ActualizarFuncion.Ejecutar(
                             datos,
                             usuario.NombreUsuario);
                         break;
 
-                    case 5:
+                    case 6:
                         EstadoFuncion.Ejecutar(
                             datos,
                             usuario.NombreUsuario);
@@ -76,7 +79,7 @@ namespace Cinema_Doomsday.Menus
 
                     case 0:
                         volver = true;
-                        continue;
+                        break;
                 }
 
                 ConsolaUI.Pausa();

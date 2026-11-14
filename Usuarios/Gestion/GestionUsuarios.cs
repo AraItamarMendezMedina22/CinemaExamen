@@ -104,7 +104,7 @@ namespace Cinema_Doomsday.Login
 
             string id =
                 GeneradorIds.SiguienteUsuario(
-                    datos);
+                datos.Usuarios);
 
             Usuario nuevo =
                 new Usuario(

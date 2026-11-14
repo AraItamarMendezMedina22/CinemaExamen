@@ -28,7 +28,7 @@ namespace Cinema_Doomsday.Archivos
         const string Firma =
             "DOOMSDAY";
 
-        const byte Version = 1;
+        const byte Version = 2;
 
         public static ContextoDatos Cargar()
         {
@@ -77,20 +77,28 @@ namespace Cinema_Doomsday.Archivos
 
                 return datos;
             }
-              catch (
-                Exception ex)
+            catch (Exception ex)
                 when (
-                    ex is IOException ||
-                    ex is InvalidDataException ||
-                    ex is EndOfStreamException ||
-                    ex is ArgumentException ||
-                    ex is OverflowException)
+                  ex is IOException ||
+                  ex is InvalidDataException ||
+                  ex is EndOfStreamException ||
+                  ex is ArgumentException ||
+                  ex is OverflowException)
             {
                 RespaldarCorrupto();
 
-                throw new InvalidDataException(
-                    "El archivo de datos está dañado o no es compatible.",
-                    ex);
+                ConsolaUI.Error(
+                    "El archivo de datos estaba dañado.");
+
+                ConsolaUI.Info(
+                    "Se creó un respaldo del archivo corrupto.");
+
+                ContextoDatos nuevos =
+                    new ContextoDatos();
+
+                Guardar(nuevos);
+
+                return nuevos;
             }
         }
 
